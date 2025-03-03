@@ -1,0 +1,69 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Uruchamiaj pipeline po pushu na gałąź main
+  pull_request:
+    branches:
+      - main  # Uruchamiaj pipeline po utworzeniu pull requesta do main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest 
+
+    steps:
+      # Krok 1: Pobierz kod z repozytorium
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Krok 2: Skonfiguruj Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Krok 3: Zainstaluj zależności frontendu
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # Krok 4: Przeprowadź testy frontendu
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm run test
+
+      # Krok 5: Skonfiguruj .NET
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0  # Użyj .NET 6.0
+
+      # Krok 6: Zainstaluj zależności backendu
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          dotnet restore
+
+      # Krok 7: Przeprowadź testy backendu
+      - name: Run backend tests
+        run: |
+          cd backend
+          dotnet test
+
+  deploy:
+    needs: build-and-test  
+    runs-on: ubuntu-latest
+
+    steps:
+      # Krok 1: Pobierz kod z repozytorium
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Krok 2: Zbuduj i opublikuj aplikację
+      - name: Build and publish
+        run: |
+          cd frontend
+          npm run build         
