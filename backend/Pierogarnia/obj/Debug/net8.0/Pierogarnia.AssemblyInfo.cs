@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pierogarnia")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc83ce1266239a23cb6e846cd72a84c183a7924f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a83c6be472620588996b6246aa222b4276a43ca6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pierogarnia")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pierogarnia")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
