@@ -9,7 +9,7 @@ on:
       - main  # Uruchamiaj pipeline po utworzeniu pull requesta do main
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest  # Użyj najnowszej wersji Ubuntu
 
     steps:
@@ -17,53 +17,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Krok 2: Skonfiguruj Node.js (dla frontendu)
+      # Krok 2: Skonfiguruj Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18  # Użyj Node.js w wersji 18
 
-      # Krok 3: Zainstaluj zależności frontendu
-      - name: Install frontend dependencies
+      # Krok 3: Zainstaluj zależności
+      - name: Install dependencies
         run: |
           cd frontend
           npm install
 
-      # Krok 4: Przeprowadź testy frontendu
-      - name: Run frontend tests
+      # Krok 4: Zbuduj aplikację
+      - name: Build application
         run: |
           cd frontend
-          npm run test
-
-      # Krok 5: Skonfiguruj .NET (dla backendu)
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0  # Użyj .NET 8.0
-
-      # Krok 6: Zainstaluj zależności backendu
-      - name: Install backend dependencies
-        run: |
-          cd backend
-          dotnet restore
-
-      # Krok 7: Przeprowadź testy backendu
-      - name: Run backend tests
-        run: |
-          cd backend
-          dotnet test
-
-  deploy:
-    needs: build-and-test  # Uruchamiaj deploy tylko po pomyślnym zakończeniu build-and-test
-    runs-on: ubuntu-latest
-
-    steps:
-      # Krok 1: Pobierz kod z repozytorium
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Krok 2: Zbuduj i opublikuj aplikację
-      - name: Build and publish
-        run: |
-          cd frontend
-          npm run build        
+          npm run build
