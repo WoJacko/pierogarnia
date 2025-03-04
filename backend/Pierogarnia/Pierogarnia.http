@@ -1,0 +1,6 @@
+@Pierogarnia_HostAddress = http://localhost:5104
+
+GET {{Pierogarnia_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
