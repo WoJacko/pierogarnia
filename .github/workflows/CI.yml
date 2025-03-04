@@ -1,0 +1,36 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Uruchamiaj pipeline po pushu na gałąź main
+  pull_request:
+    branches:
+      - main  # Uruchamiaj pipeline po utworzeniu pull requesta do main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Użyj najnowszej wersji Ubuntu
+
+    steps:
+      # Krok 1: Pobierz kod z repozytorium
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Krok 2: Skonfiguruj Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Użyj Node.js w wersji 18
+
+      # Krok 3: Zainstaluj zależności
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # Krok 4: Zbuduj aplikację
+      - name: Build application
+        run: |
+          cd frontend
+          npm run build
